@@ -11,8 +11,8 @@
 // How many leds are in the strip?
 #define NUM_LEDS 4
 #define NUM_LEDS_METER 8.0
-#define MAX_SNOWFLAKES 3
-#define BRIGHTNESS 148
+#define MAX_SNOWFLAKES 6
+#define BRIGHTNESS 230
 // Data pin that led data will be written out over
 #define R1_PIN 12
 #define R2_PIN 13
@@ -129,15 +129,15 @@ void loop() {
            int16_t abs_ar=abs(avg_delta_r());
            if (abs_av > 50 | abs_ar > 150){
              abs_av=abs_av-50;
-             if (abs_av > 500){
-               abs_av = 500;
+             if (abs_av > 1000){
+               abs_av = 1000;
              }
              abs_ar=abs_ar-150;
-             if (abs_ar > 900){
-               abs_ar = 900;
+             if (abs_ar > 1000){
+               abs_ar = 1000;
              }
-             float scale_a=(float)abs_av/500.0;
-             float scale_r=(float)abs_ar/900.0;
+             float scale_a=(float)abs_av/1000.0;
+             float scale_r=(float)abs_ar/1000.0;
              float scale = 0;
              if (scale_a > scale_r){
                scale=scale_a;
@@ -149,7 +149,7 @@ void loop() {
              snow[strand][snowflake].last_update=millis();
              float rand=(((float)random(10,45))/100.0);
              snow[strand][snowflake].vel=rand;
-             snow[strand][snowflake].brightness=8+((float)(BRIGHTNESS-8)*(1-((rand-.1)/.35)));
+             snow[strand][snowflake].brightness=25+((float)(BRIGHTNESS-25));//*(1-((rand-.1)/.35)));
              snow[strand][snowflake].brightness=snow[strand][snowflake].brightness*scale;
            }
          }
