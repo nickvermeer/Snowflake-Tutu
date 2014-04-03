@@ -1,7 +1,7 @@
 // #define FORCE_SOFTWARE_SPI
 // #define FORCE_SOFTWARE_PINS
 #include "FastLED.h"
-
+#include <Adafruit_NeoPixel.h>
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
 // Move a white dot along the strip of leds.  This program simply shows how to configure the leds,
@@ -34,6 +34,13 @@ typedef struct snow_s{
 CRGB leds[6][NUM_LEDS];
 snow_t snow[6][MAX_SNOWFLAKES];
 
+Adafruit_NeoPixel strip1 = Adafruit_NeoPixel(NUM_LEDS, R1_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip2 = Adafruit_NeoPixel(NUM_LEDS, R2_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip3 = Adafruit_NeoPixel(NUM_LEDS, R3_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip4 = Adafruit_NeoPixel(NUM_LEDS, L1_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip5 = Adafruit_NeoPixel(NUM_LEDS, L2_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip6 = Adafruit_NeoPixel(NUM_LEDS, L3_PIN, NEO_GRB + NEO_KHZ800);
+
 // This function sets up the ledsand tells the controller about them
 void setup() {
 	// sanity check delay - allows reprogramming if accidently blowing power w/leds
@@ -57,12 +64,12 @@ void setup() {
       // FastLED.addLeds<WS2811, DATA_PIN, RGB>(leds, NUM_LEDS);
       // FastLED.addLeds<WS2812, DATA_PIN, RGB>(leds, NUM_LEDS);
       // FastLED.addLeds<WS2812B, DATA_PIN, RGB>(leds, NUM_LEDS);
-      FastLED.addLeds<NEOPIXEL, R1_PIN, RGB>(leds[0], NUM_LEDS);
-      FastLED.addLeds<NEOPIXEL, R2_PIN, RGB>(leds[1], NUM_LEDS);
-      FastLED.addLeds<NEOPIXEL, R3_PIN, RGB>(leds[2], NUM_LEDS);
-      FastLED.addLeds<NEOPIXEL, L1_PIN, RGB>(leds[3], NUM_LEDS);
-      FastLED.addLeds<NEOPIXEL, L2_PIN, RGB>(leds[4], NUM_LEDS);
-      FastLED.addLeds<NEOPIXEL, L3_PIN, RGB>(leds[5], NUM_LEDS);
+      //FastLED.addLeds<NEOPIXEL, R1_PIN, RGB>(leds[0], NUM_LEDS);
+      //FastLED.addLeds<NEOPIXEL, R2_PIN, RGB>(leds[1], NUM_LEDS);
+      //FastLED.addLeds<NEOPIXEL, R3_PIN, RGB>(leds[2], NUM_LEDS);
+      //FastLED.addLeds<NEOPIXEL, L1_PIN, RGB>(leds[3], NUM_LEDS);
+      //FastLED.addLeds<NEOPIXEL, L2_PIN, RGB>(leds[4], NUM_LEDS);
+      //FastLED.addLeds<NEOPIXEL, L3_PIN, RGB>(leds[5], NUM_LEDS);
       
       // FastLED.addLeds<WS2811_400, DATA_PIN, RGB>(leds, NUM_LEDS);
       // FastLED.addLeds<UCS1903, DATA_PIN, RGB>(leds, NUM_LEDS);
@@ -74,6 +81,12 @@ void setup() {
       // FastLED.addLeds<WS2801, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);
       // FastLED.addLeds<SM16716, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);
       // FastLED.addLeds<LPD8806, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);
+      strip1.begin();
+      strip2.begin();
+      strip3.begin();
+      strip4.begin();
+      strip5.begin();
+      strip6.begin();
 }
 
 // This function runs over and over, and is where you do the magic to light
@@ -155,6 +168,34 @@ void loop() {
          }
        }
     }
-    FastLED.show();
-
+    //FastLED.show();
+    showLeds();
 }
+
+void showLeds(){
+  for(int led = 0;led < NUM_LEDS; led++){
+       strip1.setPixelColor(led,strip1.Color(leds[0][led][0],leds[0][led][1],leds[0][led][2]));
+  }
+  for(int led = 0;led < NUM_LEDS; led++){
+       strip2.setPixelColor(led,strip2.Color(leds[1][led][0],leds[1][led][1],leds[1][led][2]));
+  }
+  for(int led = 0;led < NUM_LEDS; led++){
+       strip3.setPixelColor(led,strip3.Color(leds[2][led][0],leds[2][led][1],leds[2][led][2]));
+  }
+  for(int led = 0;led < NUM_LEDS; led++){
+       strip4.setPixelColor(led,strip4.Color(leds[3][led][0],leds[3][led][1],leds[3][led][2]));
+  }
+  for(int led = 0;led < NUM_LEDS; led++){
+       strip5.setPixelColor(led,strip5.Color(leds[4][led][0],leds[4][led][1],leds[4][led][2]));
+  }
+  for(int led = 0;led < NUM_LEDS; led++){
+       strip6.setPixelColor(led,strip6.Color(leds[5][led][0],leds[5][led][1],leds[5][led][2]));
+  }
+  strip1.show();
+  strip2.show();
+  strip3.show();
+  strip4.show();
+  strip5.show();
+  strip6.show();
+}
+
