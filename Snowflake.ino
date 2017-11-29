@@ -1,4 +1,4 @@
-// #define FORCE_SOFTWARE_SPI
+ // #define FORCE_SOFTWARE_SPI
 // #define FORCE_SOFTWARE_PINS
 #include "FastLED.h"
 #include <Adafruit_NeoPixel.h>
@@ -96,7 +96,8 @@ void loop() {
    // Move a single white led 
    for(int strand = 0; strand < 6; strand++){
      for(int clearLed = 0; clearLed < NUM_LEDS; clearLed++) {
-       leds[strand][clearLed] = CRGB(0,0,0);//CRGB::Black;  
+       //leds[strand][clearLed] = CRGB(055,055,055);//CRGB::Black;  
+       leds[strand][clearLed] = CRGB(0,0,0);
      }
    }
    for(int strand = 0; strand < 6; strand++){
@@ -140,7 +141,7 @@ void loop() {
          }else if(random(0,50000)<300){
            int16_t abs_av=abs(avg_delta_v());
            int16_t abs_ar=abs(avg_delta_r());
-           if (abs_av > 50 | abs_ar > 150){
+           if (abs_av > 50 || abs_ar > 150){
              abs_av=abs_av-50;
              if (abs_av > 1000){
                abs_av = 1000;
